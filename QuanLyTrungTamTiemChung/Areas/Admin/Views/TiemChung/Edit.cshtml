@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thông tin tiêm chủng</h1>
+            </div>
+
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="card card-default">
+
+            <div class="card-header">
+                <h3 class="card-title">Thông tin người tiêm</h3>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Tên người tiêm: </p>
+                        <p>Giới tính: </p>
+                        <p>Ngày sinh: </p>
+                        <p>SĐT: </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Địa chỉ: </p>
+                        <p>Thân nhân: </p>
+                        <p>Mối quan hệ: </p>
+                        <p>SĐT thân nhân: </p>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="card card-default">
+
+            <div class="card-header">
+                <h3 class="card-title">Phiếu khám</h3>
+            </div>
+
+            <div class="card-body">
+                <p>Ngày khám: 01/12/2021 9:50</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Dị ứng</label>
+
+                            <div>
+                                <input type="radio" id="huey" name="drone" value="huey"
+                                       checked>
+                                <label for="huey" style="font-weight:400">Không</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" id="dewey" name="drone" value="dewey">
+                                <label for="dewey" style="font-weight:400">Có</label>
+                            </div>
+                            <input type="text" name="diung" id="diung" value="" class="form-control col-md-11" disabled style="height:64px" />
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nhiệt độ</label>
+                            <input type="text" value="" class="form-control col-md-11" />
+                        </div>
+                        <div class="form-group">
+                            <label>Huyết áp</label>
+                            <input type="text" value="" class="form-control col-md-11" />
+                        </div>
+                        <div class="form-group">
+                            
+                                <input type="submit" value="Save" class="btn btn-primary" />
+
+                            
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-default">
+
+            <div class="card-header">
+                <h3 class="card-title">Phiếu tiêm</h3>
+            </div>
+
+            <div class="card-body">
+
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn bg-olive">
+                        <input type="radio" name="options" id="option_b1" autocomplete="off" > Vắc xin gói
+                    </label>
+
+                    <label class="btn bg-olive">
+                        <input type="radio" name="options" id="option_b3" autocomplete="off" checked=""> Vắc xin lẻ
+                    </label>
+                </div>
+                <div class="row" style="margin-top:20px">
+                    @*<div class="col-md-5">
+                        <label>Chọn gói vắc xin</label>
+                        <select name="cars" id="goivx" class="col">
+                            <option value="volvo">GÓI VẮC XIN Infanrix (0-9 tháng) - GÓI LINH ĐỘNG 1 - 14,190,000đ</option>
+                            <option value="saab">GÓI VẮC XIN HEXAXIM - ROTATEQ - VARIVAX (0-24 tháng) - 23,202,000đ</option>
+                            <option value="opel">GÓI VẮC XIN CHO NGƯỜI TRƯỞNG THÀNH (GÓI 2) - 7,574,000đ</option>
+
+                        </select>
+                    </div>*@
+
+
+
+                    <div class="col-md-5 form-group">
+                        <label>Chọn vắc xin lẻ</label>
+                        <select name="cars" id="vxle" class="col" >
+                            <option value="volvo">Vắc xin 6 trong 1 Hexaxim (6in1) - 1,258,000đ</option>
+                            <option value="saab">HUYẾT THANH UỐN VÁN SAT - 120,000đ</option>
+                            <option value="opel">VẮC XIN EUVAX B 0.5ml - 140,000đ</option>
+                            <option value="audi">VẮC XIN CÚM INFLUVAC TETRA 0.5ml - 428,000đ</option>
+                        </select>
+
+                        <div class="form-group">
+                            <label>Liều lượng</label>
+                            <input type="text" value="" class="form-control " />
+                        </div>
+                        <div class="form-group">
+                            <label>Số lượng</label>
+                            <input type="text" value="" class="form-control " />
+                        </div>
+
+                        <input type="submit" value="Thêm" class="btn btn-primary" style="margin-top:15px" />
+
+                    </div>
+
+                </div>
+                <div style="margin-top:15px">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Tên vắc xin
+                                </th>
+                                <th>
+                                    Số lượng
+                                </th>
+                                <th>
+                                    Liều lượng
+                                </th>
+                                <th>
+                                    Thành tiền
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>VẮC XIN EUVAX B 0.5ml</td>
+                            <td>1</td>
+                            <td>100ml</td>
+                            <td>100.000đ</td>
+
+                        </tr>
+                        <tr>
+                            <td>HUYẾT THANH UỐN VÁN SAT</td>
+                            <td>5</td>
+                            <td>100ml</td>
+                            <td>200.000đ</td>
+                        </tr>
+                    </table>
+</div>
+                <div>
+                    <p>Tổng tiền: 300.000đ</p>
+                </div>
+                <div class="form-group">
+
+                    <input type="submit" value="Save" class="btn btn-primary" style="margin-top:15px" />
+
+
+                </div>
+
+            </div>
+        </div>
+</section>
+
+<script>
+    $(function () {
+        $('#goivx').select2();
+        $('#vxle').select2();
+    })
+</script>
