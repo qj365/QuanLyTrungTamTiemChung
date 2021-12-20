@@ -22,6 +22,9 @@ namespace QuanLyTrungTamTiemChung.Models
 
         public int? MAPN { get; set; }
 
+        public int?
+            MAVX { get; set; }
+
         public virtual PHIEUNHAP PHIEUNHAP { get; set; }
 
         public virtual VACXIN VACXIN { get; set; }

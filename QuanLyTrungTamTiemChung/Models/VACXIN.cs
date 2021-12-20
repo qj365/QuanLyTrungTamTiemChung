@@ -34,7 +34,6 @@ namespace QuanLyTrungTamTiemChung.Models
 
         public decimal? DONGIA { get; set; }
 
-        public int? MALO { get; set; }
 
         public int? MALOAI { get; set; }
 
