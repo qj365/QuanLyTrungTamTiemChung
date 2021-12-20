@@ -9,11 +9,6 @@ namespace QuanLyTrungTamTiemChung.Models
     [Table("LOVACXIN")]
     public partial class LOVACXIN
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LOVACXIN()
-        {
-            VACXIN = new HashSet<VACXIN>();
-        }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -29,7 +24,6 @@ namespace QuanLyTrungTamTiemChung.Models
 
         public virtual PHIEUNHAP PHIEUNHAP { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VACXIN> VACXIN { get; set; }
+        public virtual VACXIN VACXIN { get; set; }
     }
 }

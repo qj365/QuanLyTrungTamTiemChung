@@ -182,6 +182,10 @@
     <Compile Include="Migrations\202112010329115_init.Designer.cs">
       <DependentUpon>202112010329115_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112200826371_lovx-vx.cs" />
+    <Compile Include="Migrations\202112200826371_lovx-vx.Designer.cs">
+      <DependentUpon>202112200826371_lovx-vx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -293,6 +297,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202112010329115_init.resx">
       <DependentUpon>202112010329115_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112200826371_lovx-vx.resx">
+      <DependentUpon>202112200826371_lovx-vx.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

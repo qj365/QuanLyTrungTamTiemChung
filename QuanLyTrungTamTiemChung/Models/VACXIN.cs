@@ -49,6 +49,9 @@ namespace QuanLyTrungTamTiemChung.Models
 
         public virtual LOAIVACXIN LOAIVACXIN { get; set; }
 
-        public virtual LOVACXIN LOVACXIN { get; set; }
+
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LOVACXIN> LOVACXIN { get; set; }
     }
 }
