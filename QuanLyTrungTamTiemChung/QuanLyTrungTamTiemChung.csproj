@@ -190,6 +190,10 @@
     <Compile Include="Migrations\202112201011354_themmavx.Designer.cs">
       <DependentUpon>202112201011354_themmavx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112210740171_add-identity.cs" />
+    <Compile Include="Migrations\202112210740171_add-identity.Designer.cs">
+      <DependentUpon>202112210740171_add-identity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -307,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112201011354_themmavx.resx">
       <DependentUpon>202112201011354_themmavx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112210740171_add-identity.resx">
+      <DependentUpon>202112210740171_add-identity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -17,7 +17,7 @@ namespace QuanLyTrungTamTiemChung.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDTAIKHOAN { get; set; }
 
         [StringLength(50)]

@@ -11,7 +11,7 @@ namespace QuanLyTrungTamTiemChung.Models
     {
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MALO { get; set; }
 
         public int? SOLUONG { get; set; }
@@ -21,12 +21,11 @@ namespace QuanLyTrungTamTiemChung.Models
         public decimal? THANHTIEN { get; set; }
 
         public int? MAPN { get; set; }
-
-        public int?
-            MAVX { get; set; }
-
+        [ForeignKey("MAPN")]
         public virtual PHIEUNHAP PHIEUNHAP { get; set; }
 
+        public int? MAVX { get; set; }
+        [ForeignKey("MAVX")]
         public virtual VACXIN VACXIN { get; set; }
     }
 }

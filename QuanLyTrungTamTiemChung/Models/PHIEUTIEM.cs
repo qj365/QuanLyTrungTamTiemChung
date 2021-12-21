@@ -17,7 +17,7 @@ namespace QuanLyTrungTamTiemChung.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MAPHIEUTIEM { get; set; }
 
         [Column(TypeName = "date")]

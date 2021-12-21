@@ -19,7 +19,7 @@ namespace QuanLyTrungTamTiemChung.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MACS { get; set; }
 
         [StringLength(50)]

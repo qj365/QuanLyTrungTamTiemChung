@@ -16,7 +16,7 @@ namespace QuanLyTrungTamTiemChung.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MANSX { get; set; }
 
         [StringLength(50)]

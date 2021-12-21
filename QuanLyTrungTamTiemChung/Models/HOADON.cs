@@ -10,7 +10,7 @@ namespace QuanLyTrungTamTiemChung.Models
     public partial class HOADON
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MAHD { get; set; }
 
         [Column(TypeName = "date")]
