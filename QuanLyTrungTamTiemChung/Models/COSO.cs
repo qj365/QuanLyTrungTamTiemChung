@@ -1,4 +1,4 @@
-namespace QuanLyTrungTamTiemChung.Models
+﻿namespace QuanLyTrungTamTiemChung.Models
 {
     using System;
     using System.Collections.Generic;
@@ -23,6 +23,8 @@ namespace QuanLyTrungTamTiemChung.Models
         public int MACS { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Tên cơ sở")]
+        [Required(ErrorMessage = "Vui lòng nhập tên cơ sở")]
         public string TENCS { get; set; }
 
         [StringLength(15)]
