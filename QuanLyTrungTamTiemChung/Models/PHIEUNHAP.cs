@@ -1,4 +1,4 @@
-namespace QuanLyTrungTamTiemChung.Models
+﻿namespace QuanLyTrungTamTiemChung.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,16 +17,29 @@ namespace QuanLyTrungTamTiemChung.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Mã phiếu nhập")]
         public int MAPN { get; set; }
 
         [Column(TypeName = "date")]
+        [Display(Name = "Ngày nhập")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Vui lòng nhập ngày nhập")]
         public DateTime? NGAYNHAP { get; set; }
 
+        [Display(Name = "Tổng tiền")]
+        [Required(ErrorMessage = "Vui lòng nhập tổng tiền")]
+        [Range(0, int.MaxValue, ErrorMessage = "Vui lòng nhập giá trị lớn hơn 0")]
         public decimal? TONGTIEN { get; set; }
 
+        [Display(Name = "Nhà sản xuất")]
+        [Required(ErrorMessage = "Vui lòng chọn nhà sản xuất")]
         public int? MANSX { get; set; }
+        [ForeignKey("MANSX")]
 
+        [Display(Name = "Nhân viên")]
+        [Required(ErrorMessage = "Vui lòng chọn nhân viên")]
         public int? MANV { get; set; }
+        [ForeignKey("MANV")]
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOVACXIN> LOVACXIN { get; set; }

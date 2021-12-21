@@ -1,4 +1,4 @@
-namespace QuanLyTrungTamTiemChung.Models
+﻿namespace QuanLyTrungTamTiemChung.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,18 +19,30 @@ namespace QuanLyTrungTamTiemChung.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Mã kho")]
         public int MAKHO { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Tên kho")]
+        [Required(ErrorMessage = "Vui lòng nhập tên kho")]
         public string TENKHO { get; set; }
 
         [StringLength(15)]
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
+        [Display(Name = "Số điện thoại")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Không phải số điện thoại đúng định dạng")]
         public string SDT { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Địa chỉ")]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string DIACHI { get; set; }
 
+        [Display(Name = "Cơ sở")]
+        [Required(ErrorMessage = "Vui lòng chọn cơ sở")]
         public int? MACS { get; set; }
+        [ForeignKey("MACS")]
 
         public virtual COSO COSO { get; set; }
 
