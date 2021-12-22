@@ -26,7 +26,7 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
         // GET: Admin/NhaSanXuat
         public ActionResult Index(string searchTenNSX = null, string searchDiaChi = null)
         {
-            IQueryable<NHASANXUAT> khoQuery = _context.NHASANXUAT;
+            IQueryable<NHASANXUAT> nsxQuery = _context.NHASANXUAT;
 
             ViewBag.cs = _context.COSO.ToList();
 
@@ -90,6 +90,10 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
 
         public ActionResult Info(int id)
         {
+
+            ViewBag.nsx = _context.NHASANXUAT.ToList();
+            ViewBag.nsxinfo = _context.NHASANXUAT.SingleOrDefault(c => c.MANSX == id);
+
             var nhasanxuat = _context.NHASANXUAT.SingleOrDefault(c => c.MANSX == id);
             if (nhasanxuat == null)
                 return HttpNotFound();

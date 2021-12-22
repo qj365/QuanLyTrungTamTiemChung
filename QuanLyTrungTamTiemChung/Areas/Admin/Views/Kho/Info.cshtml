@@ -1,0 +1,282 @@
+﻿
+@model IEnumerable<QuanLyTrungTamTiemChung.Models.LOAIVACXIN>
+@{
+    ViewBag.Title = "Info";
+    var kho = ViewBag.kho;
+    var khoinfo = ViewBag.khoinfo;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Chi tiết kho</h1>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Thông tin các loại vắc xin trong kho @khoinfo.TENKHO</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Loại vắc xin
+                                    </th>
+                                    <th>
+                                        Tên loại vắc xin
+                                    </th>
+                                    <th>
+                                        Tên kho
+                                    </th>
+                                </tr>
+                            </thead>
+                            @foreach (var itemlvx in ViewBag.loaivx)
+                            {
+                                if (khoinfo.MAKHO == itemlvx.MAKHO)
+                                {
+                                    <tr>
+                                        <td>
+                                            @itemlvx.MALOAI
+                                        </td>
+                                        <td>
+                                            @itemlvx.TENLOAI
+                                        </td>
+                                        <td>
+                                            @khoinfo.TENKHO
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Thông tin chi tiết kho @khoinfo.TENKHO</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @using (Html.BeginForm("Save", "Kho", FormMethod.Post, new { style = "display: flex; width: 100%;", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="col=md-6" style="width: 100%">
+                                    @*<div class="form-group">
+                                            <label>
+                                                Ngày đăng ký
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" readonly="readonly" value="@productinfo.NgayDangKy.Date.ToString("dd/MM/yyyy")" />
+                                            </div>
+                                        </div>*@
+
+                                    <div class="form-group">
+                                        <label>
+                                            Tên kho
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" readonly="readonly" value="@khoinfo.TENKHO" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>
+                                            Số điện thoại
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" readonly="readonly" value="@khoinfo.SDT" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <a href="~/Admin/Kho/Index" class="btn btn-warning">Huỷ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col=md-6" style="width: 100%">
+                                    <div class="form-group">
+                                        <label>
+                                            Địa chỉ
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" readonly="readonly" value="@khoinfo.DIACHI" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>
+                                            Cơ sở
+                                        </label>
+                                        <div class="col-md-10">
+                                            @foreach (var item in ViewBag.cs)
+                                            {
+
+                                                if (item.MACS == khoinfo.MACS)
+                                                {
+                                                    <input type="text" class="form-control" readonly="readonly" value="@item.TENCS" />
+                                                    break;
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/ashl1/datatables-rowsgroup/fbd569b8768155c7a9a62568e66a64115887d7d0/dataTables.rowsGroup.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            'rowsGroup': [0, 1, 2, 3, 4, 5, 6]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        if (document.location.search.length) {
+            var urlParams = new URLSearchParams(document.location.search);
+
+            if (urlParams.get('ngaybatdau')) {
+
+                var s1 = urlParams.get('ngaybatdau').split('/');
+                var date1 = new Date(s1[2], s1[1] - 1, s1[0]);
+                $('#reservationdatetime1').datetimepicker({
+                    useCurrent: false,
+                    icons: { time: 'far fa-clock' },
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    defaultDate: date1
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+
+            }
+            else {
+                console.log(typeof (urlParams.get('ngaybatdau')))
+
+                $('#reservationdatetime1').datetimepicker({
+                    icons: { time: 'far fa-clock' },
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi'
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+
+            if (urlParams.get('ngayketthuc')) {
+                var s2 = urlParams.get('ngayketthuc').split('/');
+                var date2 = new Date(s2[2], s2[1] - 1, s2[0]);
+
+
+                $('#reservationdatetime2').datetimepicker({
+                    useCurrent: false,
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    icons: { time: 'far fa-clock' },
+                    defaultDate: date2
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+            else {
+                $('#reservationdatetime2').datetimepicker({
+                    useCurrent: false,
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    icons: { time: 'far fa-clock' }
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+
+
+            var btns = document.querySelectorAll('.info')
+            console.log(btns)
+            btns.forEach(e => e.href = e.href + document.location.search)
+
+
+        }
+
+        else {
+            $('#reservationdatetime1').datetimepicker({
+                icons: { time: 'far fa-clock' },
+                format: 'DD/MM/yyyy',
+                locale: 'vi'
+            });
+            $('#reservationdatetime2').datetimepicker({
+                useCurrent: false,
+                format: 'DD/MM/yyyy',
+                locale: 'vi',
+                icons: { time: 'far fa-clock' }
+            });
+        }
+
+        $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+            $('#reservationdatetime2').datetimepicker('minDate', e.date);
+        });
+        $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+            $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+        });
+    });
+</script>

@@ -17,6 +17,15 @@
             PHIEUXUAT1 = new HashSet<PHIEUXUAT>();
         }
 
+        public KHO(KHO kho)
+        {
+            TENKHO = kho.TENKHO;
+            SDT = kho.SDT;
+            DIACHI = kho.DIACHI;
+            MACS = kho.MACS;
+            MAKHO = kho.MAKHO;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Mã kho")]
@@ -54,5 +63,7 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEUXUAT> PHIEUXUAT1 { get; set; }
+
+        public IEnumerable<COSO> COSOs { get; set; }
     }
 }

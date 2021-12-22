@@ -26,10 +26,11 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
         // GET: Admin/Kho
         public ActionResult Index(string searchTenKho = null, string searchDiaChi = null, string searchCoSo = null)
         {
-            IQueryable<KHO> khoQuery = _context.KHO;
 
             ViewBag.cs = _context.COSO.ToList();
-            ViewBag.k = _context.KHO.ToList();
+            ViewBag.k = _context.KHO.ToList(); 
+
+            IQueryable<KHO> khoQuery = _context.KHO;           
 
             ViewBag.SearchTenKho = searchTenKho;
             ViewBag.SearchDiaChi = searchDiaChi;
@@ -89,7 +90,14 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
             var kho = _context.KHO.SingleOrDefault(c => c.MAKHO == id);
             if (kho == null)
                 return HttpNotFound();
-            return View(kho);
+
+            var cs = _context.COSO.ToList();
+
+            var viewModel = new KHO(kho)
+            {
+                COSOs = cs
+            };
+            return View(viewModel);
         }
 
         public ActionResult Delete(int id)
@@ -107,8 +115,10 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
 
         public ActionResult Info(int id, string searchTenLoaiVacXin = null)
         {
+            ViewBag.cs = _context.COSO.ToList();
             ViewBag.loaivx = _context.LOAIVACXIN.ToList();
             ViewBag.kho = _context.KHO.ToList();
+            ViewBag.khoinfo = _context.KHO.SingleOrDefault(c => c.MAKHO == id);
 
             IQueryable<LOAIVACXIN> loaivxQuery = _context.LOAIVACXIN;
 

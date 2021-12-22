@@ -1,21 +1,19 @@
-﻿@model QuanLyTrungTamTiemChung.Areas.Admin.ViewModel.KhoViewModel
+﻿@model QuanLyTrungTamTiemChung.Models.KHO
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
-
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>@Model.Title</h1>
+                <h1>Sửa kho</h1>
             </div>
 
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
 
 <section class="content">
     <div class="container-fluid">
@@ -25,32 +23,37 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="row">
-                            @using (Html.BeginForm("Save", "Kho", FormMethod.Post, new { style = "display: flex; width: 100%;" }))
+                            @using (Html.BeginForm("Save", "Kho", FormMethod.Post, new { style = "display: flex; width: 100%;", enctype = "multipart/form-data" }))
                             {
                                 @Html.AntiForgeryToken()
-
-                                string returnUrl = ViewBag.ReturnUrl;
-
-                                <input type="hidden" name="returnUrl" value="@returnUrl" />
-
                                 @Html.HiddenFor(model => model.MAKHO)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.TENKHO, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.LabelFor(model => model.TENKHO, htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-10">
                                             @Html.EditorFor(model => model.TENKHO, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.TENKHO, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
+
+
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-10">
                                             @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                            <a href="~/Admin/Kho/Index" class="btn btn-warning">Huỷ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col=md-6" style="width: 100%">
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.DIACHI, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-10">
@@ -63,25 +66,14 @@
                                         @Html.LabelFor(model => model.MACS, htmlAttributes: new { @class = "control-label col-md-5" })
                                         <div class="col-md-10">
                                             @Html.DropDownListFor(m => m.MACS, new SelectList(Model.COSOs, "macs", "tencs"), "", new { @class = "form-control spb" })
-
+                                            @*@Html.EditorFor(model => model.MACS, new { htmlAttributes = new { @class = "form-control" } })*@
                                             @Html.ValidationMessageFor(model => model.MACS, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>                                 
-                                </div>
-                                <div class="col=md-6" style="width: 100%">                                                                                                                                              
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Save" class="btn btn-primary" />
-                                            <a href="@ViewBag.ReturnUrl" class="btn btn-warning">Huỷ</a>
                                         </div>
                                     </div>
                                 </div>
 
                             }
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
@@ -89,9 +81,6 @@
     </div>
 </section>
 <script type="text/javascript">
-
-    $('.spb').select2();
-    $('.scv').select2();
 
     $(function () {
         $.validator.methods.date = function (value, element) {
@@ -104,5 +93,18 @@
             format: 'DD/MM/yyyy'
         });
 
+        $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+            $('#reservationdatetime2').datetimepicker('minDate', e.date);
+        });
+
     })
+
+    bsCustomFileInput.init();
+
+    exampleInputFile.onchange = evt => {
+        const [file] = exampleInputFile.files
+        if (file) {
+            blah.src = URL.createObjectURL(file)
+        }
+    }
 </script>

@@ -34,12 +34,10 @@
         [Display(Name = "Nhà sản xuất")]
         [Required(ErrorMessage = "Vui lòng chọn nhà sản xuất")]
         public int? MANSX { get; set; }
-        [ForeignKey("MANSX")]
 
         [Display(Name = "Nhân viên")]
         [Required(ErrorMessage = "Vui lòng chọn nhân viên")]
         public int? MANV { get; set; }
-        [ForeignKey("MANV")]
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOVACXIN> LOVACXIN { get; set; }
