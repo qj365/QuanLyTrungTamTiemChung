@@ -1,4 +1,4 @@
-﻿
+﻿@model QuanLyTrungTamTiemChung.Areas.Admin.ViewModel.PDKViewModel
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -27,16 +27,16 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Tên người tiêm: </p>
-                        <p>Giới tính: </p>
-                        <p>Ngày sinh: </p>
-                        <p>SĐT: </p>
+                        <p>Tên người tiêm: @Model.KHACHHANG.TENKH</p>
+                        <p>Giới tính: @Model.KHACHHANG.GIOITINH</p>
+                        <p>Ngày sinh: @Html.DisplayFor(c => c.KHACHHANG.NGAYSINH)</p>
+                        <p>SĐT: @Model.KHACHHANG.SDT</p>
                     </div>
                     <div class="col-md-6">
-                        <p>Địa chỉ: </p>
-                        <p>Thân nhân: </p>
-                        <p>Mối quan hệ: </p>
-                        <p>SĐT thân nhân: </p>
+                        <p>Địa chỉ: @Model.KHACHHANG.DIACHI</p>
+                        <p>Thân nhân: @Model.KHACHHANG.TENTHANNHAN</p>
+                        <p>Mối quan hệ: @Model.KHACHHANG.MOIQUANHE</p>
+                        <p>SĐT thân nhân: @Model.KHACHHANG.SDTTHANNHAN</p>
                     </div>
                 </div>
 
@@ -52,45 +52,59 @@
             </div>
 
             <div class="card-body">
-                <p>Ngày khám: 01/12/2021 9:50</p>
+                @{ 
+                    var nk = ViewBag.Nk != "-1" ? "Ngày khám: " + ViewBag.Nk : "";
+                }
+                <p>@nk</p>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
+                    @using (Html.BeginForm("LuuPhieuKham", "TiemChung", FormMethod.Post, new { name = "formpk", style = "display: flex; width: 100%; " }))
+                    {
+                        string returnUrl = ViewBag.ReturnUrl;
+
+                        <input type="hidden" name="returnUrl" value="@returnUrl" />
+                        @Html.HiddenFor(model => model.MAPHIEUDK)
+                        <input type="hidden" id="hddiung" value="@ViewBag.Diung" />
+
+
+                        <div class="col-md-6">
+
+
+                            @Html.AntiForgeryToken()
                             <label>Dị ứng</label>
 
                             <div>
-                                <input type="radio" id="huey" name="drone" value="huey"
+                                <input type="radio" id="diung1" name="diung" value="0"
                                        checked>
-                                <label for="huey" style="font-weight:400">Không</label>
+                                <label for="diung1" style="font-weight:400">Không</label>
                             </div>
 
                             <div>
-                                <input type="radio" id="dewey" name="drone" value="dewey">
-                                <label for="dewey" style="font-weight:400">Có</label>
+                                <input type="radio" id="diung2" name="diung" value="1">
+                                <label for="diung2" style="font-weight:400">Có</label>
                             </div>
-                            <input type="text" name="diung" id="diung" value="" class="form-control col-md-11" disabled style="height:64px" />
+                            <input type="text" name="diungtext" id="diungtext" class="form-control col-md-11" disabled style="height:64px" />
 
 
                         </div>
-                    </div>
 
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Nhiệt độ</label>
-                            <input type="text" value="" class="form-control col-md-11" />
-                        </div>
-                        <div class="form-group">
-                            <label>Huyết áp</label>
-                            <input type="text" value="" class="form-control col-md-11" />
-                        </div>
-                        <div class="form-group">
-                            
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nhiệt độ</label>
+                                @Html.EditorFor(model => model.PHIEUKHAM.NHIETDO, new { htmlAttributes = new { Name = "nhietdo", @class = "form-control col-md-11" } })
+
+                                @*<input type="text" name="nhietdo" class="form-control col-md-11" />*@
+                            </div>
+                            <div class="form-group">
+                                <label>Huyết áp</label>
+                                @Html.EditorFor(model => model.PHIEUKHAM.HUYETAP, new { htmlAttributes = new { Name = "huyetap", @class = "form-control col-md-11" } })
+
+                                @*<input type="text" name="huyetap" class="form-control col-md-11" />*@
+                            </div>
+                            <div class="form-group">
                                 <input type="submit" value="Save" class="btn btn-primary" />
-
-                            
+                            </div>
                         </div>
-                    </div>
-
+                    }
 
                 </div>
             </div>
@@ -106,11 +120,11 @@
 
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn bg-olive">
-                        <input type="radio" name="options" id="option_b1" autocomplete="off" > Vắc xin gói
+                        <input type="radio" name="options" id="option1" autocomplete="off" > Vắc xin gói
                     </label>
 
                     <label class="btn bg-olive">
-                        <input type="radio" name="options" id="option_b3" autocomplete="off" checked=""> Vắc xin lẻ
+                        <input type="radio" name="options" id="option2" autocomplete="off" checked> Vắc xin lẻ
                     </label>
                 </div>
                 <div class="row" style="margin-top:20px">
@@ -127,13 +141,16 @@
 
 
                     <div class="col-md-5 form-group">
-                        <label>Chọn vắc xin lẻ</label>
-                        <select name="cars" id="vxle" class="col" >
-                            <option value="volvo">Vắc xin 6 trong 1 Hexaxim (6in1) - 1,258,000đ</option>
-                            <option value="saab">HUYẾT THANH UỐN VÁN SAT - 120,000đ</option>
-                            <option value="opel">VẮC XIN EUVAX B 0.5ml - 140,000đ</option>
-                            <option value="audi">VẮC XIN CÚM INFLUVAC TETRA 0.5ml - 428,000đ</option>
-                        </select>
+                        <div class="form-group">
+                            <label>Chọn vắc xin lẻ</label>
+                            <select name="cars" id="vxle" class="col">
+                                <option value="volvo">Vắc xin 6 trong 1 Hexaxim (6in1) - 1,258,000đ</option>
+                                <option value="saab">HUYẾT THANH UỐN VÁN SAT - 120,000đ</option>
+                                <option value="opel">VẮC XIN EUVAX B 0.5ml - 140,000đ</option>
+                                <option value="audi">VẮC XIN CÚM INFLUVAC TETRA 0.5ml - 428,000đ</option>
+                            </select>
+                        </div>
+                        
 
                         <div class="form-group">
                             <label>Liều lượng</label>
@@ -197,8 +214,33 @@
 </section>
 
 <script>
+    const diung = document.getElementById('hddiung').value;
+    if (diung === "Không có") {
+        document.getElementById("diung1").checked = true;
+        document.getElementById("diungtext").disabled = true;
+
+    }
+    else if (diung !== "-1") {
+        document.getElementById("diung2").checked = true;
+        document.getElementById("diungtext").disabled = false;
+        document.getElementById("diungtext").value = diung;
+
+    }
+
     $(function () {
         $('#goivx').select2();
         $('#vxle').select2();
+
+
+
+        var form = document.forms['formpk'];
+        form.diung[0].onfocus = function () {
+            form.diungtext.disabled = true;
+        }
+        form.diung[1].onfocus = function () {
+            form.diungtext.disabled = false;
+        }
     })
+
+    
 </script>

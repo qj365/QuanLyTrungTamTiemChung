@@ -20,6 +20,8 @@ namespace QuanLyTrungTamTiemChung.Models
         public int MAPHIEUKHAM { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime? NGAYKHAM { get; set; }
 
         [StringLength(50)]

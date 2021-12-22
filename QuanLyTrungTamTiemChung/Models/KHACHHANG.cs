@@ -32,6 +32,7 @@ namespace QuanLyTrungTamTiemChung.Models
         public string GIOITINH { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NGAYSINH { get; set; }
 
         [StringLength(50)]

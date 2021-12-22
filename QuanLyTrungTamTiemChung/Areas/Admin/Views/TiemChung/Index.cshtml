@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<QuanLyTrungTamTiemChung.Models.PHIEUDANGKY>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -57,118 +57,61 @@
                                 </tr>
                             </thead>
 
+                            @foreach (var item in Model)
+                            {
+                                var pks = "";
+                                var pk = item.PHIEUKHAM.FirstOrDefault();
+                                if (pk == null)
+                                {
+                                    pks = "Chưa có";
+                                }
+                                else
+                                {
+                                    pks = pk.MAPHIEUKHAM.ToString();
+                                }
 
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    29/11/2000
-                                </td>
-                                <td>
-                                    Nguyễn Văn A
-                                </td>
-                                <td>
-                                    0123456789
-                                </td>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    Chưa có
-                                </td>
-                                <td>
-                                    Chờ thanh toán
-                                </td>
-                                <td>
+                                
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MAPHIEUDK)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NGAYDANGKYTIEM)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.KHACHHANG.TENKH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.KHACHHANG.SDT)
+                                    </td>
+                                    <td class="pk">
+                                        @Html.DisplayFor(modelItem => item.PHIEUKHAM.FirstOrDefault().MAPHIEUKHAM)
+                                    </td>
+                                    <td class="pt">
+                                        @Html.DisplayFor(modelItem => item.PHIEUKHAM.FirstOrDefault().PHIEUTIEM.FirstOrDefault().MAPHIEUTIEM)
+                                    </td>
+                                    <td class="hd">
+                                        @Html.DisplayFor(modelItem => item.PHIEUKHAM.FirstOrDefault().PHIEUTIEM.FirstOrDefault().HOADON.FirstOrDefault().MAHD)
+                                    </td>
+                                    <td class="tt">
+                                        
+                                    </td>
+                                    <td>
 
-                                    <a class="btn-edit" href="~/Admin/Job/Edit/">
-                                        <i class="far fa-edit icon-edit"></i>
-                                    </a>
+                                        <a class="btn-edit" href="~/Admin/TiemChung/Edit/@item.MAPHIEUDK">
+                                            <i class="far fa-edit icon-edit"></i>
+                                        </a>
 
-                                    <a class="js-delete" href="~/Admin/Job/Delete/">
-                                        <i class="far fa-trash-alt icon-delete"></i>
-                                    </a>
+                                        <a class="js-delete" href="~/Admin/TiemChung/Delete/@item.MAPHIEUDK">
+                                            <i class="far fa-trash-alt icon-delete"></i>
+                                        </a>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    29/11/2000
-                                </td>
-                                <td>
-                                    Nguyễn Văn C
-                                </td>
-                                <td>
-                                    0123456789
-                                </td>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    Chưa có
-                                </td>
-                                <td>
-                                    Chưa có
-                                </td>
-                                <td>
-                                    Chờ tiêm
-                                </td>
-                                <td>
+                                    </td>
+                                </tr>
 
-                                    <a class="btn-edit" href="~/Admin/Job/Edit/">
-                                        <i class="far fa-edit icon-edit"></i>
-                                    </a>
+                            }
 
-                                    <a class="js-delete" href="~/Admin/Job/Delete/">
-                                        <i class="far fa-trash-alt icon-delete"></i>
-                                    </a>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    Nguyễn Văn B
-                                </td>
-                                <td>
-                                    28/11/2000
-                                </td>
-                                <td>
-                                    0123456789
-                                </td>
-                                <td>
-                                    Chưa có
-                                </td>
-                                <td>
-                                    Chưa có
-                                </td>
-                                <td>
-                                    Chưa có
-                                </td>
-                                <td>
-                                    Chờ khám
-                                </td>
-                                <td>
-
-                                    <a class="btn-edit" href="~/Admin/Job/Edit/">
-                                        <i class="far fa-edit icon-edit"></i>
-                                    </a>
-
-                                    <a class="js-delete" href="~/Admin/Job/Delete/">
-                                        <i class="far fa-trash-alt icon-delete"></i>
-                                    </a>
-
-                                </td>
-                            </tr>
+                            
 
                         </table>
                     </div>
@@ -195,8 +138,50 @@
                     window.location = button.attr('href');
                 }
             })
-
-
         });
+
+        const pk = [...document.querySelectorAll('.pk')];
+
+        for (let i = 0; i < pk.length; i++) {
+              if (!pk[i].innerText) {
+                pk[i].innerText = "Chưa có";
+            }
+                
+        }
+
+        const pt = [...document.querySelectorAll('.pt')];
+
+        for (let i = 0; i < pt.length; i++) {
+            if (!pt[i].innerText) {
+                pt[i].innerText = "Chưa có";
+            }
+
+        }
+
+        const hd = [...document.querySelectorAll('.hd')];
+
+        for (let i = 0; i < hd.length; i++) {
+            if (!hd[i].innerText) {
+                hd[i].innerText = "Chưa có";
+            }
+
+        }
+
+        const tt = [...document.querySelectorAll('.tt')];
+        for (let i = 0; i < tt.length; i++) {
+            if (pk[i].innerText === "Chưa có") {
+                tt[i].innerText = "Chờ khám";
+            }
+
+            else if (pt[i].innerText === "Chưa có") {
+                tt[i].innerText = "Chờ tiêm";
+            }
+
+            else if (hd[i].innerText === "Chưa có") {
+                tt[i].innerText = "Chờ thanh toán";
+            }
+
+        }
+
     });
 </script>

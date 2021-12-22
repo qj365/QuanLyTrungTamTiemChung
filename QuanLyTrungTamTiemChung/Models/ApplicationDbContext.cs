@@ -89,6 +89,21 @@ namespace QuanLyTrungTamTiemChung.Models
                 .WithRequired(e => e.GOIVACXIN)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<PHIEUDANGKY>()
+                .HasMany(e => e.PHIEUKHAM)
+                .WithOptional(e => e.PHIEUDANGKY)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<PHIEUKHAM>()
+                .HasMany(e => e.PHIEUTIEM)
+                .WithOptional(e => e.PHIEUKHAM)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<PHIEUTIEM>()
+                .HasMany(e => e.HOADON)
+                .WithOptional(e => e.PHIEUTIEM)
+                .WillCascadeOnDelete(true);
+
             modelBuilder.Entity<HOADON>()
                 .Property(e => e.TONGTIEN)
                 .HasPrecision(18, 0);

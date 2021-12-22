@@ -11,7 +11,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.BACSI",
                 c => new
                     {
-                        MABS = c.Int(nullable: false),
+                        MABS = c.Int(nullable: false, identity: true),
                         TENBS = c.String(maxLength: 50),
                         SDT = c.String(maxLength: 15, unicode: false),
                         DIACHI = c.String(maxLength: 50),
@@ -32,8 +32,8 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.COSO",
                 c => new
                     {
-                        MACS = c.Int(nullable: false),
-                        TENCS = c.String(maxLength: 50),
+                        MACS = c.Int(nullable: false, identity: true),
+                        TENCS = c.String(nullable: false, maxLength: 50),
                         SDT = c.String(maxLength: 15, unicode: false),
                         DIACHI = c.String(maxLength: 50),
                     })
@@ -43,7 +43,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.KHO",
                 c => new
                     {
-                        MAKHO = c.Int(nullable: false),
+                        MAKHO = c.Int(nullable: false, identity: true),
                         TENKHO = c.String(maxLength: 50),
                         SDT = c.String(maxLength: 15, unicode: false),
                         DIACHI = c.String(maxLength: 50),
@@ -57,7 +57,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.LOAIVACXIN",
                 c => new
                     {
-                        MALOAI = c.Int(nullable: false),
+                        MALOAI = c.Int(nullable: false, identity: true),
                         TENLOAI = c.String(maxLength: 50),
                         MAKHO = c.Int(),
                     })
@@ -69,19 +69,16 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.VACXIN",
                 c => new
                     {
-                        MAVX = c.Int(nullable: false),
+                        MAVX = c.Int(nullable: false, identity: true),
                         TENVX = c.String(maxLength: 50),
                         NSX = c.DateTime(storeType: "date"),
                         HSD = c.DateTime(storeType: "date"),
                         SOLUONG = c.Int(),
                         DONGIA = c.Decimal(precision: 18, scale: 0),
-                        MALO = c.Int(),
                         MALOAI = c.Int(),
                     })
                 .PrimaryKey(t => t.MAVX)
-                .ForeignKey("dbo.LOVACXIN", t => t.MALO)
                 .ForeignKey("dbo.LOAIVACXIN", t => t.MALOAI)
-                .Index(t => t.MALO)
                 .Index(t => t.MALOAI);
             
             CreateTable(
@@ -105,7 +102,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.GOIVACXIN",
                 c => new
                     {
-                        MAGOIVX = c.Int(nullable: false),
+                        MAGOIVX = c.Int(nullable: false, identity: true),
                         TENGOIVX = c.String(maxLength: 50),
                         MOTA = c.String(maxLength: 50),
                         TONGTIEN = c.Decimal(precision: 18, scale: 0),
@@ -116,7 +113,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.PHIEUTIEM",
                 c => new
                     {
-                        MAPHIEUTIEM = c.Int(nullable: false),
+                        MAPHIEUTIEM = c.Int(nullable: false, identity: true),
                         NGAYTIEM = c.DateTime(storeType: "date"),
                         MAPHIEUKHAM = c.Int(),
                         MABS = c.Int(),
@@ -125,7 +122,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 .PrimaryKey(t => t.MAPHIEUTIEM)
                 .ForeignKey("dbo.BACSI", t => t.MABS)
                 .ForeignKey("dbo.GOIVACXIN", t => t.MAGOIVX)
-                .ForeignKey("dbo.PHIEUKHAM", t => t.MAPHIEUKHAM)
+                .ForeignKey("dbo.PHIEUKHAM", t => t.MAPHIEUKHAM, cascadeDelete: true)
                 .Index(t => t.MAPHIEUKHAM)
                 .Index(t => t.MABS)
                 .Index(t => t.MAGOIVX);
@@ -151,7 +148,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.HOADON",
                 c => new
                     {
-                        MAHD = c.Int(nullable: false),
+                        MAHD = c.Int(nullable: false, identity: true),
                         NGAYLAP = c.DateTime(storeType: "date"),
                         TONGTIEN = c.Decimal(precision: 18, scale: 0),
                         MANV = c.Int(),
@@ -159,7 +156,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                     })
                 .PrimaryKey(t => t.MAHD)
                 .ForeignKey("dbo.NHANVIEN", t => t.MANV)
-                .ForeignKey("dbo.PHIEUTIEM", t => t.MAPHIEUTIEM)
+                .ForeignKey("dbo.PHIEUTIEM", t => t.MAPHIEUTIEM, cascadeDelete: true)
                 .Index(t => t.MANV)
                 .Index(t => t.MAPHIEUTIEM);
             
@@ -167,7 +164,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.NHANVIEN",
                 c => new
                     {
-                        MANV = c.Int(nullable: false),
+                        MANV = c.Int(nullable: false, identity: true),
                         TENNV = c.String(maxLength: 50),
                         SDT = c.String(maxLength: 15, unicode: false),
                         CHUCVU = c.String(maxLength: 50),
@@ -187,7 +184,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.PHIEUNHAP",
                 c => new
                     {
-                        MAPN = c.Int(nullable: false),
+                        MAPN = c.Int(nullable: false, identity: true),
                         NGAYNHAP = c.DateTime(storeType: "date"),
                         TONGTIEN = c.Decimal(precision: 18, scale: 0),
                         MANSX = c.Int(),
@@ -203,21 +200,24 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.LOVACXIN",
                 c => new
                     {
-                        MALO = c.Int(nullable: false),
+                        MALO = c.Int(nullable: false, identity: true),
                         SOLUONG = c.Int(),
                         DONGIA = c.Decimal(precision: 18, scale: 0),
                         THANHTIEN = c.Decimal(precision: 18, scale: 0),
                         MAPN = c.Int(),
+                        MAVX = c.Int(),
                     })
                 .PrimaryKey(t => t.MALO)
                 .ForeignKey("dbo.PHIEUNHAP", t => t.MAPN)
-                .Index(t => t.MAPN);
+                .ForeignKey("dbo.VACXIN", t => t.MAVX)
+                .Index(t => t.MAPN)
+                .Index(t => t.MAVX);
             
             CreateTable(
                 "dbo.NHASANXUAT",
                 c => new
                     {
-                        MANSX = c.Int(nullable: false),
+                        MANSX = c.Int(nullable: false, identity: true),
                         TENNSX = c.String(maxLength: 50),
                         DIACHI = c.String(maxLength: 50),
                         SDT = c.String(maxLength: 15, unicode: false),
@@ -228,7 +228,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.PHIEUXUAT",
                 c => new
                     {
-                        MAPHIEUXUAT = c.Int(nullable: false),
+                        MAPHIEUXUAT = c.Int(nullable: false, identity: true),
                         NGAYLAP = c.DateTime(storeType: "date"),
                         TONGTIEN = c.Decimal(precision: 18, scale: 0),
                         MAKHODICH = c.Int(),
@@ -263,7 +263,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.TAIKHOAN",
                 c => new
                     {
-                        IDTAIKHOAN = c.Int(nullable: false),
+                        IDTAIKHOAN = c.Int(nullable: false, identity: true),
                         TENDANGNHAP = c.String(maxLength: 50),
                         MATKHAU = c.String(maxLength: 50),
                         MAQUYEN = c.Int(),
@@ -276,7 +276,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.PHANQUYEN",
                 c => new
                     {
-                        MAQUYEN = c.Int(nullable: false),
+                        MAQUYEN = c.Int(nullable: false, identity: true),
                         TENQUYEN = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.MAQUYEN);
@@ -285,7 +285,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.PHIEUKHAM",
                 c => new
                     {
-                        MAPHIEUKHAM = c.Int(nullable: false),
+                        MAPHIEUKHAM = c.Int(nullable: false, identity: true),
                         NGAYKHAM = c.DateTime(storeType: "date"),
                         DIUNG = c.String(maxLength: 50),
                         NHIETDO = c.String(maxLength: 50),
@@ -295,7 +295,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                     })
                 .PrimaryKey(t => t.MAPHIEUKHAM)
                 .ForeignKey("dbo.BACSI", t => t.MABS)
-                .ForeignKey("dbo.PHIEUDANGKY", t => t.MAPHIEUDK)
+                .ForeignKey("dbo.PHIEUDANGKY", t => t.MAPHIEUDK, cascadeDelete: true)
                 .Index(t => t.MAPHIEUDK)
                 .Index(t => t.MABS);
             
@@ -303,7 +303,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.PHIEUDANGKY",
                 c => new
                     {
-                        MAPHIEUDK = c.Int(nullable: false),
+                        MAPHIEUDK = c.Int(nullable: false, identity: true),
                         NGAYLAPPHIEU = c.DateTime(storeType: "date"),
                         NGAYDANGKYTIEM = c.DateTime(storeType: "date"),
                         MACS = c.Int(),
@@ -319,7 +319,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
                 "dbo.KHACHHANG",
                 c => new
                     {
-                        MAKH = c.Int(nullable: false),
+                        MAKH = c.Int(nullable: false, identity: true),
                         TENKH = c.String(maxLength: 50),
                         SDT = c.String(maxLength: 15, unicode: false),
                         DIACHI = c.String(maxLength: 50),
@@ -426,7 +426,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
             DropForeignKey("dbo.CT_PHIEUXUAT", "MAPHIEUXUAT", "dbo.PHIEUXUAT");
             DropForeignKey("dbo.PHIEUNHAP", "MANSX", "dbo.NHASANXUAT");
             DropForeignKey("dbo.PHIEUNHAP", "MANV", "dbo.NHANVIEN");
-            DropForeignKey("dbo.VACXIN", "MALO", "dbo.LOVACXIN");
+            DropForeignKey("dbo.LOVACXIN", "MAVX", "dbo.VACXIN");
             DropForeignKey("dbo.LOVACXIN", "MAPN", "dbo.PHIEUNHAP");
             DropForeignKey("dbo.HOADON", "MANV", "dbo.NHANVIEN");
             DropForeignKey("dbo.NHANVIEN", "MACS", "dbo.COSO");
@@ -453,6 +453,7 @@ namespace QuanLyTrungTamTiemChung.Migrations
             DropIndex("dbo.PHIEUXUAT", new[] { "MANV" });
             DropIndex("dbo.PHIEUXUAT", new[] { "MAKHONGUON" });
             DropIndex("dbo.PHIEUXUAT", new[] { "MAKHODICH" });
+            DropIndex("dbo.LOVACXIN", new[] { "MAVX" });
             DropIndex("dbo.LOVACXIN", new[] { "MAPN" });
             DropIndex("dbo.PHIEUNHAP", new[] { "MANV" });
             DropIndex("dbo.PHIEUNHAP", new[] { "MANSX" });
@@ -468,7 +469,6 @@ namespace QuanLyTrungTamTiemChung.Migrations
             DropIndex("dbo.CT_GOIVX", new[] { "MAVX" });
             DropIndex("dbo.CT_GOIVX", new[] { "MAGOIVX" });
             DropIndex("dbo.VACXIN", new[] { "MALOAI" });
-            DropIndex("dbo.VACXIN", new[] { "MALO" });
             DropIndex("dbo.LOAIVACXIN", new[] { "MAKHO" });
             DropIndex("dbo.KHO", new[] { "MACS" });
             DropIndex("dbo.BACSI", new[] { "MACS" });

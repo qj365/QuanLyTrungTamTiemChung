@@ -20,9 +20,12 @@ namespace QuanLyTrungTamTiemChung.Models
         public int MAPHIEUDK { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NGAYLAPPHIEU { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
         public DateTime? NGAYDANGKYTIEM { get; set; }
 
         public int? MACS { get; set; }

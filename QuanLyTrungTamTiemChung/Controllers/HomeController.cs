@@ -26,5 +26,12 @@ namespace QuanLyTrungTamTiemChung.Controllers
 
             return View();
         }
+
+        public ActionResult DangKy()
+        {
+            
+
+            return View();
+        }
     }
 }
