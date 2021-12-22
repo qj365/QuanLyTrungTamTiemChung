@@ -1,0 +1,345 @@
+﻿@model IEnumerable<QuanLyTrungTamTiemChung.Models.PHIEUNHAP>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh sách phiếu nhập</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Tìm kiếm</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        @using (Html.BeginForm("Index", "PhieuNhap", FormMethod.Get))
+                        {
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="searchTuTT">Tổng tiền: Từ</label>
+                                        <div style="width: 100%;">
+                                            <input type="number" min="0" step="10000" id="searchTuTT" class="form-control " value="@ViewBag.SearchTuTT" name="searchTuTT">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="searchDenTT">Đến</label>
+                                        <div style="width: 100%;">
+                                            <input type="number" min="0" step="10000" id="searchDenTT" class="form-control " value="@ViewBag.SearchDenTT" name="searchDenTT">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="searchTuNDK">
+                                            Ngày nhập: Từ
+                                        </label>
+                                        <div class="col-12 input-group date" id="reservationdatetime1" data-target-input="nearest">
+                                            <input id="searchTuNgay" value="@ViewBag.SearchTuNgay" name="searchTuNgay" class="form-control datetimepicker-input text-box single-line valid" data-target="#reservationdatetime1">
+                                            <div class="input-group-append" data-target="#reservationdatetime1" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="searchDenNDK">
+                                            Đến
+                                        </label>
+                                        <div class="col-12 input-group date" id="reservationdatetime2" data-target-input="nearest">
+                                            <input id="searchDenNgay" value="@ViewBag.SearchDenNgay" name="searchDenNgay" class="form-control datetimepicker-input text-box single-line valid" data-target="#reservationdatetime1">
+                                            <div class="input-group-append" data-target="#reservationdatetime2" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="searchNSX">Nhà sản xuất</label>
+                                        <select class=" select2_single form-control" tabindex="-1" value="@ViewBag.SearchNSX" name="searchNSX" id="searchNSX">
+                                            <option></option>
+                                            @foreach (var item in ViewBag.nsx)
+                                            {
+                                                <option value="@item.MANSX">@item.TENNSX</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="searchNV">Nhân viên</label>
+                                        <select class=" select2_single form-control" tabindex="-1" value="@ViewBag.SearchNV" name="searchNV" id="searchNV">
+                                            <option></option>
+                                            @foreach (var item in ViewBag.nv)
+                                            {
+                                                <option value="@item.MANV">@item.TENNV</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding: 0px 7.5px;">
+                                <div class="input-group input-group-lg">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-lg btn-default" id="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+
+                                        <button type="reset" class="btn btn-lg btn-default" id="buttonReset" value="Khôi phục" style="margin-left: 10px">
+                                            Khôi phục
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-sm-2">
+                            <a href="~/Admin/PhieuNhap/Create" class="btn btn-primary">
+                                Thêm mới
+                            </a>
+                        </div>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NGAYNHAP)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TONGTIEN)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NHASANXUAT)
+                                    </th>
+                                    <th>
+                                        Nhân viên
+                                    </th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NGAYNHAP)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TONGTIEN)
+                                    </td>
+                                    <td>
+                                        @foreach (var itemnsx in ViewBag.nsx)
+                                        {
+                                            if (item.MANSX == itemnsx.MANSX)
+                                            {
+                                                @itemnsx.TENNSX
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var itemnv in ViewBag.nv)
+                                        {
+                                            if (item.MANV == itemnv.MANV)
+                                            {
+                                                @itemnv.TENNV
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="js-delete" href="~/Admin/PhieuNhap/Delete/@item.MAPN">
+                                            <i class="far fa-trash-alt icon-delete" style="margin-right: 10px"></i>
+                                        </a>
+
+                                        <a class="info" href="~/Admin/PhieuNhap/Info/@item.MAPN">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        $("#example1").on("click", ".js-delete", function (event) {
+            var button = $(this);
+
+            event.preventDefault();
+
+            bootbox.confirm("Bạn chắc chắn muốn xoá mục này?", function (r) {
+                if (r) {
+                    window.location = button.attr('href');
+                }
+            })
+
+
+        });
+
+        $('.searchNSX').select2();
+        $('.searchNV').select2();
+
+        if (document.location.search.length) {
+            var urlParams = new URLSearchParams(document.location.search);
+
+            $('#searchNSX').val(urlParams.get('searchNSX'));
+            $('#searchNV').val(urlParams.get('searchNV'));
+
+            if (urlParams.get('searchTuNgay')) {
+
+                var s1 = urlParams.get('searchTuNgay').split('/');
+                var date1 = new Date(s1[2], s1[1] - 1, s1[0]);
+                $('#reservationdatetime1').datetimepicker({
+                    useCurrent: false,
+                    icons: { time: 'far fa-clock' },
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    defaultDate: date1
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+
+            }
+            else {
+                console.log(typeof (urlParams.get('searchTuNgay')))
+
+                $('#reservationdatetime1').datetimepicker({
+                    icons: { time: 'far fa-clock' },
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi'
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+
+            if (urlParams.get('searchDenNgay')) {
+                var s2 = urlParams.get('searchDenNgay').split('/');
+                var date2 = new Date(s2[2], s2[1] - 1, s2[0]);
+
+
+                $('#reservationdatetime2').datetimepicker({
+                    useCurrent: false,
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    icons: { time: 'far fa-clock' },
+                    defaultDate: date2
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+            else {
+                $('#reservationdatetime2').datetimepicker({
+                    useCurrent: false,
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    icons: { time: 'far fa-clock' }
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+
+
+            var btns = document.querySelectorAll('.info')
+            console.log(btns)
+            btns.forEach(e => e.href = e.href + document.location.search)
+
+
+        }
+
+        else {
+            $('#reservationdatetime1').datetimepicker({
+                icons: { time: 'far fa-clock' },
+                format: 'DD/MM/yyyy',
+                locale: 'vi'
+            });
+            $('#reservationdatetime2').datetimepicker({
+                useCurrent: false,
+                format: 'DD/MM/yyyy',
+                locale: 'vi',
+                icons: { time: 'far fa-clock' }
+            });
+        }
+
+        $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+            $('#reservationdatetime2').datetimepicker('minDate', e.date);
+        });
+        $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+            $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+        });
+    });
+</script>

@@ -202,6 +202,18 @@
     <Compile Include="Migrations\202112210828429_datsua.Designer.cs">
       <DependentUpon>202112210828429_datsua.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112220357220_sualovx.cs" />
+    <Compile Include="Migrations\202112220357220_sualovx.Designer.cs">
+      <DependentUpon>202112220357220_sualovx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112220628578_suapn.cs" />
+    <Compile Include="Migrations\202112220628578_suapn.Designer.cs">
+      <DependentUpon>202112220628578_suapn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112220710499_suapnnn.cs" />
+    <Compile Include="Migrations\202112220710499_suapnnn.Designer.cs">
+      <DependentUpon>202112220710499_suapnnn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -255,6 +267,15 @@
     <Content Include="Areas\Admin\Views\NhaSanXuat\Create.cshtml" />
     <Content Include="Areas\Admin\Views\NhaSanXuat\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\NhaSanXuat\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\IndexLoVX.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\CreateLoVX.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\EditLoVX.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\InfoLoVX.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhap\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhapStatistic\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuNhapStatistic\Info.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -333,6 +354,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112210828429_datsua.resx">
       <DependentUpon>202112210828429_datsua.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112220357220_sualovx.resx">
+      <DependentUpon>202112220357220_sualovx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112220628578_suapn.resx">
+      <DependentUpon>202112220628578_suapn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112220710499_suapnnn.resx">
+      <DependentUpon>202112220710499_suapnnn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

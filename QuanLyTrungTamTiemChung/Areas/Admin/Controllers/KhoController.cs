@@ -149,7 +149,12 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
         public ActionResult Save(KHO kho)
         {
             if (kho.MAKHO == 0)
+            {
                 _context.KHO.Add(kho);
+                _context.SaveChanges();
+                int makho = kho.MAKHO;
+            }
+                
             else
             {
                 var khoInDb = _context.KHO.Single(c => c.MAKHO == kho.MAKHO);

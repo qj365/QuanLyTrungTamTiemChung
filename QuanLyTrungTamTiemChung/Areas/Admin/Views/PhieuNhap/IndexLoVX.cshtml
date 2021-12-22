@@ -1,0 +1,119 @@
+﻿@model IEnumerable<QuanLyTrungTamTiemChung.Models.LOVACXIN>
+
+@{
+    ViewBag.Title = "Index";
+    var tongtien = ViewBag.ToTal;
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-sm-2">
+                            <a href="~/Admin/PhieuNhap/CreateLoVX" class="btn btn-primary">
+                                Thêm mới
+                            </a>
+                        </div>                                               
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Lô vắc xin
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SOLUONG)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DONGIA)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.THANHTIEN)
+                                    </th>
+                                    <th>
+                                        Tên vắc xin
+                                    </th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MALO)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SOLUONG)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DONGIA)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.THANHTIEN)
+                                    </td>
+                                    <td>
+                                        @foreach (var itemvx in ViewBag.vx)
+                                        {
+                                            if (item.MAVX == itemvx.MAVX)
+                                            {
+                                                @itemvx.TENVX
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+
+                                        <a class="btn-edit" href="~/Admin/PhieuNhap/EditLoVX/@item.MALO">
+                                            <i class="far fa-edit icon-edit"></i>
+                                        </a>
+
+                                        <a class="js-delete" href="~/Admin/PhieuNhap/DeleteLoVX/@item.MALO">
+                                            <i class="far fa-trash-alt icon-delete" style="margin-right: 10px"></i>
+                                        </a>
+
+                                        <a class="info" href="~/Admin/PhieuNhap/InfoLoVX/@item.MALO">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }                            
+                        </table>
+                        @*<div class="row">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col">
+                                <p style="font-weight:700">Tổng tiền: @tongtien</p>
+                            </div>
+
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        $("#example1").on("click", ".js-delete", function (event) {
+            var button = $(this);
+
+            event.preventDefault();
+
+            bootbox.confirm("Bạn chắc chắn muốn xoá mục này?", function (r) {
+                if (r) {
+                    window.location = button.attr('href');
+                }
+            })
+        });
+</script>

@@ -9,6 +9,20 @@
     [Table("LOVACXIN")]
     public partial class LOVACXIN
     {
+        public LOVACXIN()
+        {
+            
+        }
+
+        public LOVACXIN(LOVACXIN lovx)
+        {
+            MALO = lovx.MALO;
+            SOLUONG = lovx.SOLUONG;
+            DONGIA = lovx.DONGIA;
+            THANHTIEN = lovx.THANHTIEN;
+            MAPN = lovx.MAPN;
+            MAVX = lovx.MAVX;
+        }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,13 +39,12 @@
         [Range(0, int.MaxValue, ErrorMessage = "Vui lòng nhập giá trị lớn hơn 0")]
         public decimal? DONGIA { get; set; }
 
-        [Display(Name = "Đơn giá")]
+        [Display(Name = "Thành tiền")]
         [Required(ErrorMessage = "Vui lòng nhập thành tiền")]
         [Range(0, int.MaxValue, ErrorMessage = "Vui lòng nhập giá trị lớn hơn 0")]
         public decimal? THANHTIEN { get; set; }
 
         [Display(Name = "Phiếu nhập")]
-        [Required(ErrorMessage = "Vui lòng chọn phiếu nhập")]
         public int? MAPN { get; set; }
         [ForeignKey("MAPN")]
         public virtual PHIEUNHAP PHIEUNHAP { get; set; }
@@ -41,5 +54,7 @@
         public int? MAVX { get; set; }
         [ForeignKey("MAVX")]
         public virtual VACXIN VACXIN { get; set; }
+
+        public IEnumerable<VACXIN> VACXINs { get; set; }
     }
 }

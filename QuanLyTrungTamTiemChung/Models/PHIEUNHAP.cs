@@ -15,6 +15,15 @@
             LOVACXIN = new HashSet<LOVACXIN>();
         }
 
+        public PHIEUNHAP(PHIEUNHAP phieunhap)
+        {
+            MAPN = phieunhap.MAPN;
+            NGAYNHAP = phieunhap.NGAYNHAP;
+            TONGTIEN = phieunhap.TONGTIEN;
+            MANSX = phieunhap.MANSX;
+            MANV = phieunhap.MANV;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Mã phiếu nhập")]
@@ -22,12 +31,11 @@
 
         [Column(TypeName = "date")]
         [Display(Name = "Ngày nhập")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Vui lòng nhập ngày nhập")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? NGAYNHAP { get; set; }
 
         [Display(Name = "Tổng tiền")]
-        [Required(ErrorMessage = "Vui lòng nhập tổng tiền")]
         [Range(0, int.MaxValue, ErrorMessage = "Vui lòng nhập giá trị lớn hơn 0")]
         public decimal? TONGTIEN { get; set; }
 
@@ -45,5 +53,9 @@
         public virtual NHANVIEN NHANVIEN { get; set; }
 
         public virtual NHASANXUAT NHASANXUAT { get; set; }
+
+        public IEnumerable<NHANVIEN> NHANVIENs { get; set; }
+
+        public IEnumerable<NHASANXUAT> NHASANXUATs { get; set; }
     }
 }
