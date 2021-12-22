@@ -1,0 +1,238 @@
+﻿@model QuanLyTrungTamTiemChung.Models.LOVACXIN
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm lô vắc xin</h1>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            @using (Html.BeginForm("SaveLoVX", "PhieuNhap", FormMethod.Post, new { style = "display: flex; width: 100%;", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SOLUONG, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.SOLUONG, new { htmlAttributes = new { @class = "form-control", @min = "0", @id="soluong" } })
+                                            @Html.ValidationMessageFor(model => model.SOLUONG, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.THANHTIEN, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.THANHTIEN, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "thanhtien" } })
+                                            @Html.ValidationMessageFor(model => model.THANHTIEN, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-lg btn-default" id="button" onclick="myFunction()">
+                                                <i class="fas fa-calculator"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Save" class="btn btn-primary" onclick="myFunction()"/>
+                                            <a href="~/Admin/PhieuNhap/Create" class="btn btn-warning">Huỷ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col=md-6" style="width: 100%">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DONGIA, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.DONGIA, new { htmlAttributes = new { @class = "form-control", @min = "0", @step = "10000", @id = "dongia", @type="number" } })
+                                            @Html.ValidationMessageFor(model => model.DONGIA, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MAVX, htmlAttributes: new { @class = "control-label col-md-5" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(m => m.MAVX, new SelectList(Model.VACXINs, "mavx", "tenvx"), "", new { @class = "form-control spb" })
+
+                                            @Html.ValidationMessageFor(model => model.MAVX, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        $("#example1").on("click", ".js-delete", function (event) {
+            var button = $(this);
+
+            event.preventDefault();
+
+            bootbox.confirm("Bạn chắc chắn muốn xoá mục này?", function (r) {
+                if (r) {
+                    window.location = button.attr('href');
+                }
+            })
+
+
+        });
+
+        $('.searchCoSo').select2();
+
+        if (document.location.search.length) {
+            var urlParams = new URLSearchParams(document.location.search);
+
+            $('#searchCoSo').val(urlParams.get('searchCoSo'));
+
+            if (urlParams.get('searchTuNDK')) {
+
+                var s1 = urlParams.get('searchTuNDK').split('/');
+                var date1 = new Date(s1[2], s1[1] - 1, s1[0]);
+                $('#reservationdatetime1').datetimepicker({
+                    useCurrent: false,
+                    icons: { time: 'far fa-clock' },
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    defaultDate: date1
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+
+            }
+            else {
+                console.log(typeof (urlParams.get('searchTuNDK')))
+
+                $('#reservationdatetime1').datetimepicker({
+                    icons: { time: 'far fa-clock' },
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi'
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+
+            if (urlParams.get('searchDenNDK')) {
+                var s2 = urlParams.get('searchDenNDK').split('/');
+                var date2 = new Date(s2[2], s2[1] - 1, s2[0]);
+
+
+                $('#reservationdatetime2').datetimepicker({
+                    useCurrent: false,
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    icons: { time: 'far fa-clock' },
+                    defaultDate: date2
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+            else {
+                $('#reservationdatetime2').datetimepicker({
+                    useCurrent: false,
+                    format: 'DD/MM/yyyy',
+                    locale: 'vi',
+                    icons: { time: 'far fa-clock' }
+                });
+
+                $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+                });
+                $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+                    $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+                });
+            }
+
+
+            var btns = document.querySelectorAll('.info')
+            console.log(btns)
+            btns.forEach(e => e.href = e.href + document.location.search)
+
+
+        }
+
+        else {
+            $('#reservationdatetime1').datetimepicker({
+                icons: { time: 'far fa-clock' },
+                format: 'DD/MM/yyyy',
+                locale: 'vi'
+            });
+            $('#reservationdatetime2').datetimepicker({
+                useCurrent: false,
+                format: 'DD/MM/yyyy',
+                locale: 'vi',
+                icons: { time: 'far fa-clock' }
+            });
+        }
+
+        $("#reservationdatetime1").on("change.datetimepicker", function (e) {
+            $('#reservationdatetime2').datetimepicker('minDate', e.date);
+        });
+        $("#reservationdatetime2").on("change.datetimepicker", function (e) {
+            $('#reservationdatetime1').datetimepicker('maxDate', e.date);
+        });
+
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+
+        //$('#reservationdatetime1').datetimepicker({
+        //    icons: { time: 'far fa-clock' },
+        //    locale: 'vi',
+        //    format: 'DD/MM/yyyy'
+        //});
+
+        //$("#reservationdatetime1").on("change.datetimepicker", function (e) {
+        //    $('#reservationdatetime2').datetimepicker('minDate', e.date);
+        //});
+    });
+
+    function myFunction() {
+        var resources = document.getElementById('soluong').value;
+        var minutes = document.getElementById('dongia').value;
+        document.getElementById('thanhtien').value = parseInt(resources) * parseInt(minutes);
+
+    }
+</script>

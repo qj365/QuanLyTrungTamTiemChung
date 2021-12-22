@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuanLyTrungTamTiemChung.Models.KHO>
+﻿@model IEnumerable<QuanLyTrungTamTiemChung.Models.NHASANXUAT>
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách kho</h1>
+                <h1>Danh sách nhà sản xuất</h1>
             </div>
         </div>
     </div>
@@ -31,27 +31,14 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        @using (Html.BeginForm("Index", "Kho", FormMethod.Get))
+                        @using (Html.BeginForm("Index", "NhaSanXuat", FormMethod.Get))
                         {
-                            @*<div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Truy vấn</label>
-                                            <select class="form-control select2" id="Select" name="Select" style="width: 100%;">
-                                                <option disabled selected> Chọn truy vấn</option>
-                                                <option value="1">5. Ngày đăng ký trước ngày 15/08/2019</option>
-                                                <option value="2">6. Hạn sử dụng trên 1 năm</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>*@
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="searchTenKho">Tên kho</label>
+                                        <label for="searchTenNSX">Tên nhà sản xuất</label>
                                         <div style="width: 100%;">
-                                            <input type="text" id="searchTenKho" class="form-control " value="@ViewBag.SearchTenKho" name="searchTenKho">
+                                            <input type="text" id="searchTenNSX" class="form-control " value="@ViewBag.SearchTenNSX" name="searchTenNSX">
                                         </div>
                                     </div>
                                 </div>
@@ -63,22 +50,7 @@
                                             <input type="text" id="searchDiaChi" class="form-control " value="@ViewBag.SearchDiaChi" name="searchDiaChi">
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="searchCoSo">Cơ sở</label>
-                                        <select class=" select2_single form-control" tabindex="-1" value="@ViewBag.SearchCoSo" name="searchCoSo" id="searchCoSo">
-                                            <option></option>
-                                            @foreach (var item in ViewBag.cs)
-                                            {
-                                                <option value="@item.MACS">@item.TENCS</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-
-                                
+                                </div>                              
                             </div>
 
                             <div class="row" style="padding: 0px 7.5px;">
@@ -105,7 +77,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="col-sm-2">
-                            <a href="~/Admin/Kho/Create" class="btn btn-primary">
+                            <a href="~/Admin/NhaSanXuat/Create" class="btn btn-primary">
                                 Thêm mới
                             </a>
                         </div>
@@ -117,16 +89,13 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.TENKHO)
+                                        @Html.DisplayNameFor(model => model.TENNSX)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.SDT)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.DIACHI)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.COSO.TENCS)
                                     </th>
                                     <th>Chức năng</th>
                                 </tr>
@@ -136,34 +105,25 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.TENKHO)
+                                        @Html.DisplayFor(modelItem => item.TENNSX)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.SDT)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.DIACHI)
-                                    </td>
-                                    <td>
-                                        @foreach (var itemcs in ViewBag.cs)
-                                        {
-                                            if (item.MACS == itemcs.MACS)
-                                            {
-                                                @itemcs.TENCS
-                                            }
-                                        }
-                                    </td>
+                                    </td>                                    
                                     <td>
 
-                                        <a class="btn-edit" href="~/Admin/Kho/Edit/@item.MAKHO">
+                                        <a class="btn-edit" href="~/Admin/NhaSanXuat/Edit/@item.MANSX">
                                             <i class="far fa-edit icon-edit"></i>
                                         </a>
 
-                                        <a class="js-delete" href="~/Admin/Kho/Delete/@item.MAKHO">
+                                        <a class="js-delete" href="~/Admin/NhaSanXuat/Delete/@item.MANSX">
                                             <i class="far fa-trash-alt icon-delete" style="margin-right: 10px"></i>
                                         </a>
 
-                                        <a class="info" href="~/Admin/Kho/Info/@item.MAKHO">
+                                        <a class="info" href="~/Admin/NhaSanXuat/Info/@item.MANSX">
                                             <i class="fas fa-info-circle"></i>
                                         </a>
 

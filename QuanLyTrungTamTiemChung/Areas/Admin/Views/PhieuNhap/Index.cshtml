@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuanLyTrungTamTiemChung.Models.KHO>
+﻿@model IEnumerable<QuanLyTrungTamTiemChung.Models.PHIEUNHAP>
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách kho</h1>
+                <h1>Danh sách phiếu nhập</h1>
             </div>
         </div>
     </div>
@@ -31,54 +31,81 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        @using (Html.BeginForm("Index", "Kho", FormMethod.Get))
+                        @using (Html.BeginForm("Index", "PhieuNhap", FormMethod.Get))
                         {
-                            @*<div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Truy vấn</label>
-                                            <select class="form-control select2" id="Select" name="Select" style="width: 100%;">
-                                                <option disabled selected> Chọn truy vấn</option>
-                                                <option value="1">5. Ngày đăng ký trước ngày 15/08/2019</option>
-                                                <option value="2">6. Hạn sử dụng trên 1 năm</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>*@
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="searchTenKho">Tên kho</label>
+                                        <label for="searchTuTT">Tổng tiền: Từ</label>
                                         <div style="width: 100%;">
-                                            <input type="text" id="searchTenKho" class="form-control " value="@ViewBag.SearchTenKho" name="searchTenKho">
+                                            <input type="number" min="0" step="10000" id="searchTuTT" class="form-control " value="@ViewBag.SearchTuTT" name="searchTuTT">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="searchDiaChi">Địa chỉ</label>
+                                        <label for="searchDenTT">Đến</label>
                                         <div style="width: 100%;">
-                                            <input type="text" id="searchDiaChi" class="form-control " value="@ViewBag.SearchDiaChi" name="searchDiaChi">
+                                            <input type="number" min="0" step="10000" id="searchDenTT" class="form-control " value="@ViewBag.SearchDenTT" name="searchDenTT">
                                         </div>
                                     </div>
                                 </div>
 
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="searchTuNDK">
+                                            Ngày nhập: Từ
+                                        </label>
+                                        <div class="col-12 input-group date" id="reservationdatetime1" data-target-input="nearest">
+                                            <input id="searchTuNgay" value="@ViewBag.SearchTuNgay" name="searchTuNgay" class="form-control datetimepicker-input text-box single-line valid" data-target="#reservationdatetime1">
+                                            <div class="input-group-append" data-target="#reservationdatetime1" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="searchDenNDK">
+                                            Đến
+                                        </label>
+                                        <div class="col-12 input-group date" id="reservationdatetime2" data-target-input="nearest">
+                                            <input id="searchDenNgay" value="@ViewBag.SearchDenNgay" name="searchDenNgay" class="form-control datetimepicker-input text-box single-line valid" data-target="#reservationdatetime1">
+                                            <div class="input-group-append" data-target="#reservationdatetime2" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="searchCoSo">Cơ sở</label>
-                                        <select class=" select2_single form-control" tabindex="-1" value="@ViewBag.SearchCoSo" name="searchCoSo" id="searchCoSo">
+                                        <label for="searchNSX">Nhà sản xuất</label>
+                                        <select class=" select2_single form-control" tabindex="-1" value="@ViewBag.SearchNSX" name="searchNSX" id="searchNSX">
                                             <option></option>
-                                            @foreach (var item in ViewBag.cs)
+                                            @foreach (var item in ViewBag.nsx)
                                             {
-                                                <option value="@item.MACS">@item.TENCS</option>
+                                                <option value="@item.MANSX">@item.TENNSX</option>
                                             }
                                         </select>
                                     </div>
                                 </div>
 
-                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="searchNV">Nhân viên</label>
+                                        <select class=" select2_single form-control" tabindex="-1" value="@ViewBag.SearchNV" name="searchNV" id="searchNV">
+                                            <option></option>
+                                            @foreach (var item in ViewBag.nv)
+                                            {
+                                                <option value="@item.MANV">@item.TENNV</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row" style="padding: 0px 7.5px;">
@@ -86,6 +113,10 @@
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-lg btn-default" id="button">
                                             <i class="fa fa-search"></i>
+                                        </button>
+
+                                        <button type="reset" class="btn btn-lg btn-default" id="buttonReset" value="Khôi phục" style="margin-left: 10px">
+                                            Khôi phục
                                         </button>
                                     </div>
                                 </div>
@@ -105,7 +136,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="col-sm-2">
-                            <a href="~/Admin/Kho/Create" class="btn btn-primary">
+                            <a href="~/Admin/PhieuNhap/Create" class="btn btn-primary">
                                 Thêm mới
                             </a>
                         </div>
@@ -117,16 +148,16 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.TENKHO)
+                                        @Html.DisplayNameFor(model => model.NGAYNHAP)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.SDT)
+                                        @Html.DisplayNameFor(model => model.TONGTIEN)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.DIACHI)
+                                        @Html.DisplayNameFor(model => model.NHASANXUAT)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.COSO.TENCS)
+                                        Nhân viên
                                     </th>
                                     <th>Chức năng</th>
                                 </tr>
@@ -136,34 +167,35 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.TENKHO)
+                                        @Html.DisplayFor(modelItem => item.NGAYNHAP)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.SDT)
+                                        @Html.DisplayFor(modelItem => item.TONGTIEN)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.DIACHI)
-                                    </td>
-                                    <td>
-                                        @foreach (var itemcs in ViewBag.cs)
+                                        @foreach (var itemnsx in ViewBag.nsx)
                                         {
-                                            if (item.MACS == itemcs.MACS)
+                                            if (item.MANSX == itemnsx.MANSX)
                                             {
-                                                @itemcs.TENCS
+                                                @itemnsx.TENNSX
                                             }
                                         }
                                     </td>
                                     <td>
-
-                                        <a class="btn-edit" href="~/Admin/Kho/Edit/@item.MAKHO">
-                                            <i class="far fa-edit icon-edit"></i>
-                                        </a>
-
-                                        <a class="js-delete" href="~/Admin/Kho/Delete/@item.MAKHO">
+                                        @foreach (var itemnv in ViewBag.nv)
+                                        {
+                                            if (item.MANV == itemnv.MANV)
+                                            {
+                                                @itemnv.TENNV
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="js-delete" href="~/Admin/PhieuNhap/Delete/@item.MAPN">
                                             <i class="far fa-trash-alt icon-delete" style="margin-right: 10px"></i>
                                         </a>
 
-                                        <a class="info" href="~/Admin/Kho/Info/@item.MAKHO">
+                                        <a class="info" href="~/Admin/PhieuNhap/Info/@item.MAPN">
                                             <i class="fas fa-info-circle"></i>
                                         </a>
 
@@ -199,16 +231,18 @@
 
         });
 
-        $('.searchCoSo').select2();
+        $('.searchNSX').select2();
+        $('.searchNV').select2();
 
         if (document.location.search.length) {
             var urlParams = new URLSearchParams(document.location.search);
 
-            $('#searchCoSo').val(urlParams.get('searchCoSo'));
+            $('#searchNSX').val(urlParams.get('searchNSX'));
+            $('#searchNV').val(urlParams.get('searchNV'));
 
-            if (urlParams.get('searchTuNDK')) {
+            if (urlParams.get('searchTuNgay')) {
 
-                var s1 = urlParams.get('searchTuNDK').split('/');
+                var s1 = urlParams.get('searchTuNgay').split('/');
                 var date1 = new Date(s1[2], s1[1] - 1, s1[0]);
                 $('#reservationdatetime1').datetimepicker({
                     useCurrent: false,
@@ -227,7 +261,7 @@
 
             }
             else {
-                console.log(typeof (urlParams.get('searchTuNDK')))
+                console.log(typeof (urlParams.get('searchTuNgay')))
 
                 $('#reservationdatetime1').datetimepicker({
                     icons: { time: 'far fa-clock' },
@@ -243,8 +277,8 @@
                 });
             }
 
-            if (urlParams.get('searchDenNDK')) {
-                var s2 = urlParams.get('searchDenNDK').split('/');
+            if (urlParams.get('searchDenNgay')) {
+                var s2 = urlParams.get('searchDenNgay').split('/');
                 var date2 = new Date(s2[2], s2[1] - 1, s2[0]);
 
 
