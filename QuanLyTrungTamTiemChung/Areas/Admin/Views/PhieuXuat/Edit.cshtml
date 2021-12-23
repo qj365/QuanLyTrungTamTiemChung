@@ -1,0 +1,188 @@
+﻿@model QuanLyTrungTamTiemChung.Areas.Admin.ViewModel.PXViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Sửa phiếu xuất</h1>
+            </div>
+
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        @using (Html.BeginForm("Add", "PhieuXuat", FormMethod.Post))
+                        {
+                            @Html.HiddenFor(model => model.MAPHIEUXUAT)
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MAKHONGUON, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(m => m.MAKHONGUON, new SelectList(ViewBag.Kho1, "makho", "tenkho"), "", new { @class = "form-control kho1" })
+                                            @Html.ValidationMessageFor(model => model.MAKHONGUON, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MAKHODICH, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-7">
+                                            @Html.DropDownListFor(m => m.MAKHODICH, new SelectList(ViewBag.Kho2, "makho", "tenkho"), "", new { @class = "form-control kho2" })
+
+                                            @Html.ValidationMessageFor(model => model.MAKHODICH, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model=>model.MAVX, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(m => m.MAVX, new SelectList(ViewBag.VX, "mavx", "tenvx"), "", new { @class = "form-control vx" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model=>model.SOLUONG, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-4">
+                                            @Html.EditorFor(m => m.SOLUONG, "", new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SOLUONG, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-7">
+                                    <input type="submit" value="Thêm vắc xin" class="btn btn-primary" />
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-sm-4">
+                            Thông tin vắc xin
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Tên vắc xin
+                                    </th>
+                                    <th>
+                                        Ngày sản xuất
+                                    </th>
+                                    <th>
+                                        Hạn sử dụng
+                                    </th>
+                                    <th>
+                                        Số lượng
+                                    </th>
+                                    <th>
+                                        Đơn giá
+                                    </th>
+                                    <th>
+                                        Thành tiền
+                                    </th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in ViewBag.CT)
+                            {
+
+                                <tr>
+                                    <td>
+                                        @item.VACXIN.TENVX
+                                    </td>
+                                    <td>
+                                        @item.VACXIN.NSX.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>
+                                        @item.VACXIN.HSD.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>
+                                        @item.SOLUONG
+                                    </td>
+                                    <td>
+                                        @item.DONGIAXUAT
+                                    </td>
+                                    <td>
+                                        @item.THANHTIEN
+                                    </td>
+                                    <td>
+
+                                        <a class="js-delete" href="~/Admin/PhieuXuat/Delete1">
+                                            <i class="far fa-trash-alt icon-delete"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+
+                    </div>
+
+
+                </div>
+                
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-7">
+                            <a href="~/Admin/PhieuXuat" class="btn btn-warning">Quay lại</a>
+                        </div>
+                    </div>
+                    
+
+
+                        
+
+                    </div>
+                </div>
+    </div>
+</section>
+<script type="text/javascript">
+
+    $('.kho1').select2();
+    $('.kho2').select2();
+    $('.vx').select2();
+    $("#example1").on("click", ".js-delete", function (event) {
+        var button = $(this);
+
+        event.preventDefault();
+
+        bootbox.confirm("Bạn chắc chắn muốn xoá mục này?", function (r) {
+            if (r) {
+                window.location = button.attr('href');
+            }
+        })
+</script>

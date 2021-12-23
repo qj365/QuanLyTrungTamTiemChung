@@ -1,0 +1,58 @@
+﻿
+
+@{
+    ViewBag.Title = "Index1";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index1</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã phiếu xuất
+        </th>
+        <th>
+            Tên vắc xin
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Đơn giá xuất
+        </th>
+        <th>
+            Thành tiền
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewBag.CT) {
+    <tr>
+        <td>
+            @item.PHIEUXUAT.MAPHIEUXUAT
+        </td>
+        <td>
+            @item.VACXIN.TENVX
+        </td>
+        <td>
+            @item.SOLUONG
+        </td>
+        <td>
+            @item.DONGIAXUAT
+        </td>
+        <td>
+            @item.THANHTIEN
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,4 +1,4 @@
-namespace QuanLyTrungTamTiemChung.Models
+﻿namespace QuanLyTrungTamTiemChung.Models
 {
     using System;
     using System.Collections.Generic;
@@ -22,6 +22,7 @@ namespace QuanLyTrungTamTiemChung.Models
         public int MANV { get; set; }
 
         [StringLength(50)]
+        [Display (Name = "Tên nhân viên")]
         public string TENNV { get; set; }
 
         [StringLength(15)]

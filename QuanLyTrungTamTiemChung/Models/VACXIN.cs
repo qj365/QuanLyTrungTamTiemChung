@@ -1,4 +1,4 @@
-namespace QuanLyTrungTamTiemChung.Models
+﻿namespace QuanLyTrungTamTiemChung.Models
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace QuanLyTrungTamTiemChung.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MAVX { get; set; }
-
+        [Display(Name ="Tên vắc xin")]
         [StringLength(50)]
         public string TENVX { get; set; }
 

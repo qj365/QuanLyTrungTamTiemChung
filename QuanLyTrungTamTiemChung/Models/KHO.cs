@@ -1,4 +1,4 @@
-namespace QuanLyTrungTamTiemChung.Models
+﻿namespace QuanLyTrungTamTiemChung.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,8 +19,9 @@ namespace QuanLyTrungTamTiemChung.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(Name ="Mã kho")]
         public int MAKHO { get; set; }
-
+        [Display(Name = "Kho lưu trữ")]
         [StringLength(50)]
         public string TENKHO { get; set; }
 

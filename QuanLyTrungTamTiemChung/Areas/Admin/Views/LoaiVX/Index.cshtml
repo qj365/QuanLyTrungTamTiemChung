@@ -1,0 +1,96 @@
+﻿@model IEnumerable<QuanLyTrungTamTiemChung.Models.LOAIVACXIN>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Loại vắc-xin</h1>
+            </div>
+
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-sm-4">
+                            <a href="~/Admin/LoaiVX/Create" class="btn btn-primary">
+                                Thêm mới
+                            </a>
+                        </div>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TENLOAI)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.KHO.TENKHO)
+                                    </th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TENLOAI)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.KHO.TENKHO)
+                                    </td>   
+                                    <td>
+
+                                        <a class="btn-edit" href="~/Admin/LoaiVX/Edit/@item.MALOAI">
+                                            <i class="far fa-edit icon-edit"></i>
+                                        </a>
+
+                                        <a class="js-delete" href="~/Admin/LoaiVX/Delete/@item.MALOAI">
+                                            <i class="far fa-trash-alt icon-delete"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false, searching: true,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        $("#example1").on("click", ".js-delete", function (event) {
+            var button = $(this);
+
+            event.preventDefault();
+
+            bootbox.confirm("Bạn chắc chắn muốn xoá mục này?", function (r) {
+                if (r) {
+                    window.location = button.attr('href');
+                }
+            })
+
+
+        });
+    });
+</script>

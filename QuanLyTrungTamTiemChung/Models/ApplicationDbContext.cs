@@ -28,6 +28,7 @@ namespace QuanLyTrungTamTiemChung.Models
         public virtual DbSet<PHIEUXUAT> PHIEUXUAT { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOAN { get; set; }
         public virtual DbSet<VACXIN> VACXIN { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

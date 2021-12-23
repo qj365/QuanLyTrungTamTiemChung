@@ -1,4 +1,4 @@
-namespace QuanLyTrungTamTiemChung.Models
+﻿namespace QuanLyTrungTamTiemChung.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,12 +16,13 @@ namespace QuanLyTrungTamTiemChung.Models
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(Name = "Mã vắc xin")]
         public int MAVX { get; set; }
-
+        [Display(Name = "Số lượng")]
         public int? SOLUONG { get; set; }
-
+        [Display(Name = "Đơn giá xuất")]
         public decimal? DONGIAXUAT { get; set; }
-
+        [Display(Name = "Thành tiền")]
         public decimal? THANHTIEN { get; set; }
 
         public virtual PHIEUXUAT PHIEUXUAT { get; set; }

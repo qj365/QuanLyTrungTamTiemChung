@@ -1,4 +1,4 @@
-namespace QuanLyTrungTamTiemChung.Models
+﻿namespace QuanLyTrungTamTiemChung.Models
 {
     using System;
     using System.Collections.Generic;
@@ -20,14 +20,15 @@ namespace QuanLyTrungTamTiemChung.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(Name = "Mã cơ sở")]
         public int MACS { get; set; }
-
+        [Display(Name = "Tên cơ sở")]
         [StringLength(50)]
         public string TENCS { get; set; }
-
+        [Display(Name = "SĐT cơ sở")]
         [StringLength(15)]
         public string SDT { get; set; }
-
+        [Display(Name = "Địa chỉ cơ sở")]
         [StringLength(50)]
         public string DIACHI { get; set; }
 
