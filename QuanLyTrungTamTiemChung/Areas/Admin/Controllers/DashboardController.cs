@@ -30,6 +30,8 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
             ViewBag.Vx = _context.Database.SqlQuery<int>("select sum(SOLUONG) from COSO a, KHO b, LOAIVACXIN c, VACXIN d where a.MACS = b.MACS and b.MAKHO = c.MAKHO and d.MALOAI = c.MALOAI and  b.MACS = 1");
 
             ViewBag.Pt = _context.Database.SqlQuery<int>("select count(*) from COSO a, PHIEUDANGKY b, PHIEUKHAM c, PHIEUTIEM d where a.MACS = b.MACS and b.MAPHIEUDK = c.MAPHIEUDK and c.MAPHIEUKHAM = d.MAPHIEUKHAM and a.MACS = 1 and MONTH(NGAYTIEM) = MONTH(GETDATE())").FirstOrDefault();
+
+
             return View();
         }
     }

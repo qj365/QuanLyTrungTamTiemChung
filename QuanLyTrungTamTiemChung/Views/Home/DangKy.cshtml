@@ -1,32 +1,52 @@
-﻿
+﻿@using QuanLyTrungTamTiemChung.Models
+@model QuanLyTrungTamTiemChung.ViewModel.ThemPDKViewModel
 @{
     ViewBag.Title = "DangKy";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DangKy</h2>
-<link rel="stylesheet" href="~/Areas/Admin/Data/plugins/daterangepicker/daterangepicker.css">
 <div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
+    <h2>Đăng ký tiêm chủng</h2>
+    <hr />
+
+
+    @using (Html.BeginForm("LuuPhieuDK", "Home", FormMethod.Post, new { name = "formpk", style = "display: flex; width: 100%; " }))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class='col-md-3'>
             <div class="form-group">
-                <div class='input-group date' id='datetimepicker3'>
-                    <input type='text' class="form-control" />
+                <label>Chọn cơ sở</label>
+                @Html.DropDownListFor(C => C.MACS, new SelectList(Model.DSCOSO, "MACS", "TENCS"), "", new { @class = "form-control spb", @required = "required" })
+
+            </div>
+            <div class="form-group">
+                <label>Đăng ký lịch</label>
+                <div class='input-group date' id='datetimepicker7'>
+                    <input type='text' name="ngay" class="form-control" required/>
                     <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-time"></span>
+                        <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
             </div>
+            <div class="form-group">
+                <input type="submit" value="Đăng ký" class="btn btn-primary" />
+            </div>
         </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker3').datetimepicker({
-                    format: 'LT'
-                });
-            });
-        </script>
-    </div>
+        }
+
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script type="text/javascript">
+    $(function () {
+        $('.spb').select2();
+
+        $('#datetimepicker7').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'DD/MM/yyyy',
+            locale: 'vi',
+        });
+        $('#datetimepicker7').data("DateTimePicker").minDate(new Date(Date.now()))
+        
+    });
+</script>

@@ -122,7 +122,10 @@
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script>
+
     $(function () {
+
+
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
@@ -179,6 +182,10 @@
 
             else if (hd[i].innerText === "Chưa có") {
                 tt[i].innerText = "Chờ thanh toán";
+            }
+            else if (hd[i].innerText !== "Chưa có") {
+                tt[i].innerText = "Đã thanh toán";
+
             }
 
         }

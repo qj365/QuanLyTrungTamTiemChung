@@ -18,13 +18,13 @@ namespace QuanLyTrungTamTiemChung.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MAVX { get; set; }
 
-        public decimal? LIEULUONG { get; set; }
+        public int? LIEULUONG { get; set; }
 
         public int? SOLUONG { get; set; }
 
-        public decimal? DONGIA { get; set; }
+        public int? DONGIA { get; set; }
 
-        public decimal? THANHTIEN { get; set; }
+        public int? THANHTIEN { get; set; }
 
         public virtual GOIVACXIN GOIVACXIN { get; set; }
 

@@ -6,18 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace QuanLyTrungTamTiemChung.Areas.Admin.ViewModel
+namespace QuanLyTrungTamTiemChung.ViewModel
 {
-    public class PDKViewModel
+    public class ThemPDKViewModel
     {
-        public PDKViewModel(PHIEUDANGKY pHIEUDANGKY)
+        public ThemPDKViewModel()
         {
-            MAPHIEUDK = pHIEUDANGKY.MAPHIEUDK;
-            NGAYLAPPHIEU = pHIEUDANGKY.NGAYLAPPHIEU;
-            NGAYDANGKYTIEM = pHIEUDANGKY.NGAYDANGKYTIEM;
-            MACS = pHIEUDANGKY.MACS;
-            MAKH = pHIEUDANGKY.MAKH;
-
+            MAPHIEUDK = 0;
+            
         }
 
         [Key]
@@ -41,14 +37,9 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.ViewModel
 
         public virtual KHACHHANG KHACHHANG { get; set; }
 
-        public virtual PHIEUKHAM PHIEUKHAM { get; set; }
-
-        public virtual PHIEUTIEM PHIEUTIEM { get; set; }
-
-        public int? MAGOIVX { get; set; }
-
-        public IEnumerable<GOIVACXIN> GOIVACXIN { get; set; }
-        public IEnumerable<CT_GOIVX> CT_GOIVX { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PHIEUKHAM> PHIEUKHAM { get; set; }
+        public virtual ICollection<COSO> DSCOSO { get; set; }
 
     }
 }

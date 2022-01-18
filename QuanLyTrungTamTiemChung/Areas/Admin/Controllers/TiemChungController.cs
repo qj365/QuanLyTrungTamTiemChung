@@ -57,12 +57,23 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
             PHIEUKHAM pk = _context.Database.SqlQuery<PHIEUKHAM>("select * from PHIEUKHAM a, PHIEUDANGKY b where a.MAPHIEUDK = b.MAPHIEUDK and b.MAPHIEUDK = {0}", id).SingleOrDefault();
             PHIEUTIEM pt = _context.Database.SqlQuery<PHIEUTIEM>("select * from PHIEUKHAM a, PHIEUDANGKY b, PHIEUTIEM c where a.MAPHIEUDK = b.MAPHIEUDK and a.MAPHIEUKHAM = c.MAPHIEUKHAM and b.MAPHIEUDK = {0}", id).SingleOrDefault();
             KHACHHANG kh = _context.Database.SqlQuery<KHACHHANG>("select * from khachhang a, phieudangky b where a.makh = b.makh and b.MAPHIEUDK = {0}", id).SingleOrDefault();
-
+            var  gvx = _context.GOIVACXIN.ToList();
+            var ctgvx = _context.CT_GOIVX.ToList();
+            var mapk = pk == null ? 0:pk.MAPHIEUKHAM ;
+            int magvx;
+            if (_context.PHIEUKHAM.Where(c => c.MAPHIEUKHAM == mapk).FirstOrDefault() == null)
+                magvx = 0;
+            else
+                magvx = _context.PHIEUKHAM.Where(c => c.MAPHIEUKHAM == pk.MAPHIEUKHAM).SingleOrDefault().MAPHIEUKHAM;
+            ViewBag.Magvx =  magvx;
             var viewModel = new PDKViewModel(pdk)
             {
                 KHACHHANG = kh,
                 PHIEUKHAM = pk,
                 PHIEUTIEM = pt,
+                GOIVACXIN = gvx,
+                CT_GOIVX = ctgvx,
+                MAGOIVX = magvx,
             };
             if (viewModel.PHIEUKHAM != null)
             {
@@ -91,6 +102,27 @@ namespace QuanLyTrungTamTiemChung.Areas.Admin.Controllers
             else
                 luudiung = diungtext;
             _context.Database.ExecuteSqlCommand("CapNhatPhieuKham @MAPHIEUDK = {0}, @Diung = {1}, @Nhietdo = {2}, @Huyetap = {3}, @Mabs = {4}", MAPHIEUDK, luudiung, nhietdo, huyetap, 1);
+            return Redirect(returnUrl);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LuuPhieuTiem(int MAPHIEUDK, string options, int MAGOIVX, string returnUrl)
+        {
+            if(options == "0")
+            {
+                _context.Database.ExecuteSqlCommand("CapNhatPhieuTiem @MAPHIEUDK = {0}, @mabs = {1}, @magoivx = {2}", MAPHIEUDK, 1, MAGOIVX);//chú
+                List<CT_GOIVX> ct = _context.Database.SqlQuery<CT_GOIVX>("select * from CT_GOIVX where magoivx = {0}", MAGOIVX).ToList();
+                foreach (var item in ct)
+                {
+                    _context.Database.ExecuteSqlCommand("CapNhatCTPhieuTiem @MAPHIEUDK = {0}, @MAVX = {1}, @LIEULUONG = {2}, @SOLUONG = {3},@DONGIA = {4}, @THANHTIEN =  {5}", MAPHIEUDK, item.MAVX, item.LIEULUONG, item.SOLUONG, item.DONGIA, item.THANHTIEN);
+                }
+
+            }
+            else if (options == "1"){
+                _context.Database.ExecuteSqlCommand("CapNhatPhieuTiem @MAPHIEUDK = {0}, @mabs = {1}, @magoivx = {2}", MAPHIEUDK, 1, DBNull.Value);
+            }
+
             return Redirect(returnUrl);
         }
 

@@ -48,17 +48,6 @@ namespace QuanLyTrungTamTiemChung.Models
                 .Property(e => e.SDT)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CT_GOIVX>()
-                .Property(e => e.LIEULUONG)
-                .HasPrecision(18, 0);
-
-            modelBuilder.Entity<CT_GOIVX>()
-                .Property(e => e.DONGIA)
-                .HasPrecision(18, 0);
-
-            modelBuilder.Entity<CT_GOIVX>()
-                .Property(e => e.THANHTIEN)
-                .HasPrecision(18, 0);
 
             modelBuilder.Entity<CT_PHIEUTIEM>()
                 .Property(e => e.LIEULUONG)
